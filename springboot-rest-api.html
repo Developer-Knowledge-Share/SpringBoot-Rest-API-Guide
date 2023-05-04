@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>springboot-rest-api.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="springboot-restful-api">Springboot Restful API</h1>
+<h2 id="starting-your-spring-boot-application-build">Starting your Spring Boot Application Build</h2>
+<p>In any Spring Boot Restful API you will need to start following some simple steps to get your project started. Performing these below steps will help you build your initial Springboot Restful API.</p>
+<ul>
+<li><a href="#starting-your-spring-boot-application-build">Table of Contents</a>
+<ul>
+<li><a href="#spring-boot-application-initializing">Spring Boot Application Initializing</a></li>
+<li><a href="#spring-boot-packaging-structure">Spring Boot Packaging Structure</a></li>
+<li><a href="#mysql-connection-setup">MySQL Connection Setup</a></li>
+<li><a href="#model-creation">Model Creation</a></li>
+<li><a href="#repository-creation">Repository Creation</a></li>
+<li><a href="#exception-creation">Exception Creation</a></li>
+<li><a href="#controller-creation">Controller Creation</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="spring-boot-application-initializing">Spring Boot Application Initializing</h3>
+<ul>
+<li>
+<p>Initializing a Spring Boot Application(We will walk through two different ways to initialize a project)</p>
+<ul>
+<li>
+<p>Spring Initializr</p>
+<ol>
+<li>Navigate to <a href="https://start.spring.io">https://start.spring.io</a></li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/96712943/234622225-8274780a-c4a0-486a-92d7-358bf292f8bb.png" alt="Spring Boot Initializr Application"></p>
+<ol start="2">
+<li>Choose either Gradle or Maven</li>
+<li>Choose Java</li>
+<li>Choose Spring Boot Version</li>
+<li>Name your Group Id for your project</li>
+<li>Name your Artifact Id for your project</li>
+<li>Type Description for your project</li>
+<li>Choose Package type</li>
+<li>Choose Java version</li>
+<li>Click Dependencies</li>
+<li>Add dependencies:
+<ul>
+<li>Spring Web</li>
+<li>Spring Data JPA</li>
+<li>MySQL Driver
+<strong>These are the basic dependencies for our project</strong></li>
+</ul>
+</li>
+<li>Click Generate
+<ul>
+<li>This will generate a project in a zip folder</li>
+<li>Unzip folder in any directory on your machine</li>
+</ul>
+</li>
+<li>Open Project in your selected IDE</li>
+</ol>
+</li>
+</ul>
+<p>or</p>
+<ul>
+<li>
+<p>IDE Initialized Spring Boot Application</p>
+<ul>
+<li>Prerequisites if using VS Code
+<ul>
+<li>Install these VS Code Extensions
+<ul>
+<li>Extension Pack for Java</li>
+<li>Spring Boot Extension Pack</li>
+</ul>
+</li>
+<li>Initalize our Java Development Kit (JDK) in our IDE environment</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Open your selected IDE (We will be using VS Code)</li>
+<li>Navigate to the Command Palette</li>
+<li>Search &quot;Spring Initializr&quot;</li>
+<li>Select &quot;Spring Initializr: Create a Maven Project&quot;</li>
+<li>Select Spring Boot Version (We will be using 3.0.6)</li>
+<li>Select Java</li>
+<li>Name your Group Id for the project (Typical standard is your selected url backwards ex: com.myproject)</li>
+<li>Name your Artifact Id</li>
+<li>Select your packaging type (We will be using Jar)</li>
+<li>Select your Java version (We will be using version 17)</li>
+<li>Add dependencies:
+<ul>
+<li>Spring Web</li>
+<li>Spring Data JPA</li>
+<li>MySQL Driver
+<strong>These are the basic dependencies for our project</strong></li>
+</ul>
+</li>
+<li>Press Enter or Return to continue</li>
+<li>Select destination for your project</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="spring-boot-packaging-structure">Spring Boot Packaging Structure</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>When we initialize a Spring Boot application chances are that there will be some starting packages and files in our project. Let's clean our structure up so that it meets typical standards.
+<ul>
+<li>Typical Spring Boot Application Structure</li>
+</ul>
+<pre class="hljs"><code><div>example
+    src
+        main    
+            java
+                controller
+                exception
+                model
+                repository
+                ExampleApplication.java
+            resources
+                application.properties
+        test
+            java
+                example
+                    ExampleApplicationTest.java
+    target
+    .gitignore
+    mvnw
+    mvnw.cmd
+    pom.xml
+</div></code></pre>
+<strong>The above structure is most likely what your basic Spring Boot project will look like but it is dependant on your specific IDE you are using</strong></li>
+</ul>
+<h3 id="mysql-connection-setup">MySQL Connection Setup</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>We will now setup our connection to a MySQL Database in our Spring Boot Application
+<ol>
+<li>
+<p>Navigate to <code>src/main/resources</code></p>
+</li>
+<li>
+<p>Open the <code>application.properties</code> file</p>
+</li>
+<li>
+<p>Type the following code:</p>
+<pre class="hljs"><code><div>spring.datasource.url=jdbc:mysql://localhost:3306/example?useSSL=false
+spring.datasource.username=root
+spring.datasource.password=password
+
+# Hibernate properties
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+spring.jpa.hibernate.ddl-auto=update
+</div></code></pre>
+<p><strong>Here is a break down of each of these lines</strong></p>
+<p><img src="https://user-images.githubusercontent.com/96712943/234959736-f281c9ae-f147-47c2-abd4-b4b863f965d5.png" alt="application.properties file"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="model-creation">Model Creation</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>
+<p>Now let's look at how we can create a model for us to use throughout our service and controller layers</p>
+<ol>
+<li>Navigate to <code>src/main/java/model</code></li>
+<li>Create new file for the model you want to create
+<ul>
+<li><code>Ex: MyModel.java</code></li>
+</ul>
+</li>
+<li>Now we will add our code to turn this file into an appropriate Spring Boot Model
+<ul>
+<li>Initial model class creation
+<ul>
+<li>We use the <code>@Entity</code> annotation to tell Spring Boot this is an Entity class</li>
+<li>We use the <code>@Table</code> annotation to tell Spring Boot what table this model represents</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@Entity
+@Table(name=&quot;myModel&quot;)
+public class MyModel {
+    
+}
+</div></code></pre>
+<ul>
+<li>Add our fields assigning them to columns
+<ul>
+<li>We use the <code>@Id</code> annotation to tell JPA this will be our primary key for this table and it will be the identifier for each entity added to our table</li>
+<li>We use the <code>@GenerateValue(strategy = GenerationType.IDENTITY)</code> to auto generate a unique value for a specific field in a Java class when a new entity is created</li>
+<li>We use the <code>@Column(name=&quot;columnName&quot;, nullable = false)</code> to tell our Java program that this field will belong to the specified column in our table.
+<ul>
+<li><strong>The <code>nullable = false</code> is the same as using <code>NOT NULL</code> in our SQL statement</strong></li>
+<li><strong>This means that any field annotated with <code>nullable = false</code> must always have a value</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@Entity
+@Table(name = &quot;myModel&quot;)
+public class MyModel {
+
+    @Id
+    @GenerateValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = &quot;firstName&quot;, nullable = false)
+    private String firstName;
+
+    @Column(name = &quot;lastName&quot;, nullable = false)
+    private String lastName;
+
+}
+</div></code></pre>
+<ul>
+<li>Add our constructor for all of our fields
+<ul>
+<li>This is a basic Java constructor that initializes all of our fields for object creation</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@Entity
+@Table(name = &quot;myModel&quot;)
+public class MyModel {
+
+    @Id
+    @GenerateValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = &quot;firstName&quot;, nullable = false)
+    private String firstName;
+
+    @Column(name = &quot;lastName&quot;, nullable = false)
+    private String lastName;
+
+    public myModel(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+}
+</div></code></pre>
+<ul>
+<li>Now we can add our Getters and Setters for our fields
+<ul>
+<li>These are standard Java Getters and Setters we use to access or modify our fields</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@Entity
+@Table(name = &quot;myModel&quot;)
+public class MyModel {
+
+    @Id
+    @GenerateValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = &quot;firstName&quot;, nullable = false)
+    private String firstName;
+
+    @Column(name = &quot;lastName&quot;, nullable = false)
+    private String lastName;
+
+    public myModel(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+}
+</div></code></pre>
+<ul>
+<li>Now let's add our toString, hashCode and equals methods
+<ul>
+<li>We override the inherited toString, hashCode and equals methods to fit the fields in our class</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@Entity
+@Table(name = &quot;myModel&quot;)
+public class MyModel {
+
+    @Id
+    @GenerateValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = &quot;firstName&quot;, nullable = false)
+    private String firstName;
+
+    @Column(name = &quot;lastName&quot;, nullable = false)
+    private String lastName;
+
+    public myModel(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id &gt;&gt;&gt; 32));
+        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        myModel other = (myModel) obj;
+        if (id != other.id)
+            return false;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;myModel [id=&quot; + id + &quot;, firstName=&quot; + firstName + &quot;, lastName=&quot; + lastName + &quot;]&quot;;
+    }
+}
+</div></code></pre>
+</li>
+</ol>
+<h3 id="repository-creation">Repository Creation</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>Now that we have our <code>model</code> created we can create a <code>repository</code> for our <code>model</code> which will enable <code>JPA</code> to handle all the <code>SQL statements</code> for us
+<ol>
+<li>Navigate to <code>src/main/java/repository</code></li>
+<li>Create a repository file for our created model
+<ul>
+<li>Ex: <code>MyModelRepository.java</code></li>
+</ul>
+</li>
+<li>Now we will add our code to make this a proper JPA repository
+<ul>
+<li>Jpa Repository Interface Creation
+<ul>
+<li>We inherit all the <code>C.R.U.D.</code> methods from the <code>JpaRepository interface</code> to be used on our <code>myModel entity</code></li>
+<li>We pass in our model and id data type as arguments to the <code>JpaRepository interface</code></li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>public interface MyModelRepository extends JpaRepository&lt;myModel, long&gt;{
+    
+}
+</div></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="exception-creation">Exception Creation</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>Now that we have our <code>model</code> and our <code>repository</code>, let's create a <code>custome exception</code> to handle a specific exception we might get in our program
+<ol>
+<li>Navigate to <code>src/main/java/exception</code></li>
+<li>Create a exception file for our custom exception
+<ul>
+<li>Ex: <code>ResourceNotFoundException.java</code></li>
+</ul>
+</li>
+<li>Now we will add our code to make this a proper custom exception class
+<ul>
+<li>ResourceNotFoundException Class Creation
+<ul>
+<li>We use the <code>@ResponseStatus(value = HttpStatus.NOT_FOUND)</code> annotation to specify the HTTP response for our custom exception which in this case will throw a 404 status code</li>
+<li>We extend the <code>RuntimeException class</code> to create a unchecked exception that will allow us to handle unexpected or unrecoverable errors in our code</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+
+}
+</div></code></pre>
+<ul>
+<li>Add our fields for our exception class
+<ul>
+<li>The <code>serialVersionUID</code> field is used to make sure that the class remains compatible with its serialized form across different versions of the software</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
+}
+</div></code></pre>
+<ul>
+<li>Add our constructorto initialize all of our fields
+<ul>
+<li>This constructor calls the constructor from the <code>RuntimeException class</code> using the <code>super method</code> with the provided string</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
+    public ResourceNotFoundException(String message) {
+        super(message);
+
+    }
+}
+</div></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="controller-creation">Controller Creation</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>Now that we have our <code>model</code>, <code>repository</code>, a <code>custom exception</code> to handle Resource not found exceptions, a <code>service interface</code>, and a <code>service implementation class</code>, we can create a controller for our <code>model service class</code>
+<ol>
+<li>
+<p>Navigate to <code>src/main/java/controller</code></p>
+</li>
+<li>
+<p>Create a file for our model service implementation</p>
+<ul>
+<li>Ex: <code>MyModelController.java</code></li>
+</ul>
+</li>
+<li>
+<p>Now we will add our code to make this a proper model service controller class</p>
+<ul>
+<li>MyModelController Class Initial Creation
+<ul>
+<li>We use the <code>@RestController</code> annotation to let our Java program know that this class is a <code>Rest Controller</code> that will be used to control the actions between the service layer and the database</li>
+<li>We use the <code>@RequestMapping(&quot;/api/v1/&quot;)</code> annotation to tell our program how to handle incoming HTTP requests from our client</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1/&quot;)
+public class MyModelController {
+
+}
+</div></code></pre>
+<ul>
+<li>Add our fields for our <code>model controller class</code>
+<ul>
+<li>We use the <code>@Autowired</code> annotation to automatically <code>inject</code> an <code>object instance</code> of our <code>UserRepository interface</code> into our <code>private field</code></li>
+<li>The <code>myModeRepository</code> field is used to store our repository for our model so we can call methods to handle requests sent from the client</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1/&quot;)
+public class MyModelController {
+
+    @Autowired
+    private MyModelRepository myModeRepository;
+
+}
+</div></code></pre>
+<ul>
+<li>Add our <code>HTTP POST route</code> method
+<ul>
+<li>We use the <code>@PostMapping</code> annotation to tell our Java program that this is how we will control the <code>POST</code> route requests for this model</li>
+<li>We create the <code>saveMyModel</code> method which calls the <code>myModelRepository save</code> method to <code>save</code> the new model to our <code>repository</code></li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1/&quot;)
+public class MyModelController {
+
+    @Autowired
+    private MyModelRepository myModelRepository;
+
+    @PostMapping(&quot;/myModel&quot;)
+    public MyModel saveMyModel(@RequestBody MyModel myModel) {
+        return myModelRepository.save(myModel);
+    }
+    
+}
+</div></code></pre>
+<ul>
+<li>Add our <code>HTTP GET ALL route</code> method
+<ul>
+<li>We use the <code>@GetMapping(&quot;/myModel&quot;)</code> annotation to tell our Java program that this is how we will control the <code>GET ALL</code> route requests for this model</li>
+<li>We create the <code>getAllMyModels</code> method which calls the <code>myModelRepository findAll</code> method which returns a all of our <code>objects</code> in our <code>repository</code></li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1&quot;)
+public class MyModelController {
+
+    @Autowired
+    private MyModelRepository MyModelRepository;
+
+    @PostMapping(&quot;/myModel&quot;)
+    public MyModel saveMyModel(@RequestBody MyModel myModel) {
+        return myModelRepository.save(myModel);
+    }
+
+    @GetMapping(&quot;/myModel&quot;)
+    public List&lt;User&gt; getAllMyModels() {
+        return this.myModelRepository.findAll();
+    }
+    
+}
+</div></code></pre>
+<ul>
+<li>Add our <code>HTTP GET ONE route</code> method
+<ul>
+<li>We use the <code>@GetMapping(&quot;/myModel/{id}&quot;)</code> annotation to tell our Java program that this is how we will control the <code>GET ONE</code> route requests for this model</li>
+<li>We use the <code>@PathVariable(&quot;id&quot;)</code> to tell our method we are using the <code>url path id parameter</code> and we will assign it to a new variable called <code>myModelId</code></li>
+<li>We create the <code>getMyModel</code> method which calls our <code>MyModelRepository findById</code> method to <code>get</code> the <code>object</code> we are looking for by its <code>id</code>. If it does not exist we return a new custom exception</li>
+<li>We return the <code>ResponseEntity class</code> with a <code>response object</code> and a <code>HTTP status code</code></li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1&quot;)
+public class MyModelController {
+
+    @Autowired
+    private MyModelRepository MyModelRepository;
+
+    @PostMapping(&quot;/myModel&quot;)
+    public MyModel saveMyModel(@RequestBody MyModel myModel) {
+        return myModelRepository.save(myModel);
+    }
+
+    @GetMapping(&quot;/myModel&quot;)
+    public List&lt;User&gt; getAllMyModels() {
+        return this.myModelRepository.findAll();
+    }
+
+    @GetMapping(&quot;/myModel/{id}&quot;)
+    public ResponseEntity&lt;MyModel&gt; getMyModel(@PathVariable(&quot;id&quot;) long myModelId) {
+        MyModel myModel = this.myModelRepository.findById(myModelId).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;MyModel does not exist with the Id: &quot; + myModelId));
+        return ResponseEntity.ok(myModel);
+    }
+    
+}
+</div></code></pre>
+<ul>
+<li>Add our <code>HTTP PUT route</code> method
+<ul>
+<li>We use the <code>@PutMapping(&quot;/myModel/{id}&quot;)</code> annotation to tell our Java program that this is how we will control the <code>PUT</code> route requests for this model</li>
+<li>We use the <code>@PathVariable(&quot;id&quot;)</code> to tell our method we are using the <code>url path id parameter</code> and we will assign it to a new variable called <code>myModelId</code></li>
+<li>We use the <code>@RequestBody</code> annotation to tell our method where this object we are using is coming from we assign it to a new variable called <code>myModel</code></li>
+<li>We create the <code>updateMyModel method</code> which calls the  <code>myModelRepository findById</code> method to get the <code>object</code> we want to <code>put</code> the changes from the passed in <code>object</code> into. If it is not found we throw our custom exception</li>
+<li>We modify the data in our <code>existingMyModel object</code> using <code>setter</code> methods and the passed in <code>objects data</code></li>
+<li>We get the data from the passed in <code>object</code> by using its <code>getter</code> methods</li>
+<li>We use the <code>myModelRepository save</code> method to <code>save</code> the changes we made to our <code>existingMyModel object</code> into our <code>repository</code></li>
+<li>We return a <code>ResponseEntity</code> back to our <code>client</code> telling them the process was successful</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1&quot;)
+public class MyModelController {
+
+    @Autowired
+    private MyModelRepository MyModelRepository;
+
+    @PostMapping(&quot;/myModel&quot;)
+    public MyModel saveMyModel(@RequestBody MyModel myModel) {
+        return myModelRepository.save(myModel);
+    }
+
+    @GetMapping(&quot;/myModel&quot;)
+    public List&lt;User&gt; getAllMyModels() {
+        return this.myModelRepository.findAll();
+    }
+
+    @GetMapping(&quot;/myModel/{id}&quot;)
+    public ResponseEntity&lt;MyModel&gt; getMyModel(@PathVariable(&quot;id&quot;) long myModelId) {
+        MyModel myModel = this.myModelRepository.findById(myModelId).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;MyModel does not exist with the Id: &quot; + myModelId));
+        return ResponseEntity.ok(myModel);
+    }
+
+    @PutMapping(&quot;/myModel/{id}&quot;)
+    public ResponseEntity&lt;MyModel&gt; updateMyModel(@PathVariable(&quot;id&quot;) long id, @RequestBody MyModel myModel) {
+
+        MyModel existingMyModel = this.myModelRepository.findById(id).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;MyModel does not exist with the Id: &quot; + myModelId));
+
+        existingMyModel.setFirstName(myModel.getFirstName());
+        existingMyModel.setLastName(myModel.getLastName());
+
+        MyModel updatedMyModel = this.myModelRepository.save(existingMyModel);
+        return ResponseEntity.ok(updatedMyModel);
+    }
+    
+}
+</div></code></pre>
+<ul>
+<li>Add <code>HTTP DELETE route</code> method
+<ul>
+<li>We use the <code>@DeleteMapping(&quot;/myModel/{id}&quot;)</code> annotation to tell our Java program that this is how we will control the <code>DELETE</code> route requests for this model</li>
+<li>We use the <code>@PathVariable(&quot;id&quot;)</code> to tell our method we are using the <code>url path id parameter</code> and we will assign it to a new variable called <code>id</code></li>
+<li>We create the <code>deleteMyModel method</code> which calls the  <code>myModelRepository findById</code> method to get the <code>object</code> we want to <code>delete</code>. If it is not found we throw our custom exception</li>
+<li>We <code>delete</code> the <code>myModel object</code> using the <code>myModelRepository delete</code> method</li>
+<li>We return a <code>ResponseEntity</code> back to our <code>client</code> telling them the process was successful</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>@RestController
+@RequestMapping(&quot;/api/v1&quot;)
+public class MyModelController {
+
+    @Autowired
+    private MyModelRepository MyModelRepository;
+
+    @PostMapping(&quot;/myModel&quot;)
+    public MyModel saveMyModel(@RequestBody MyModel myModel) {
+        return myModelRepository.save(myModel);
+    }
+
+    @GetMapping(&quot;/myModel&quot;)
+    public List&lt;User&gt; getAllMyModels() {
+        return this.myModelRepository.findAll();
+    }
+
+    @GetMapping(&quot;/myModel/{id}&quot;)
+    public ResponseEntity&lt;MyModel&gt; getMyModel(@PathVariable(&quot;id&quot;) long myModelId) {
+        MyModel myModel = this.myModelRepository.findById(myModelId).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;MyModel does not exist with the Id: &quot; + myModelId));
+        return ResponseEntity.ok(myModel);
+    }
+
+    @PutMapping(&quot;/myModel/{id}&quot;)
+    public ResponseEntity&lt;MyModel&gt; updateMyModel(@PathVariable(&quot;id&quot;) long id, @RequestBody MyModel myModel) {
+
+        MyModel existingMyModel = this.myModelRepository.findById(id).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;MyModel does not exist with the Id: &quot; + myModelId));
+
+        existingMyModel.setFirstName(myModel.getFirstName());
+        existingMyModel.setLastName(myModel.getLastName());
+
+        MyModel updatedMyModel = this.myModelRepository.save(existingMyModel);
+        return ResponseEntity.ok(updatedMyModel);
+    }
+
+    @DeleteMapping(&quot;/myModel/{id}&quot;)
+    public ResponseEntity&lt;String&gt; deleteMyModel(@PathVariable(&quot;id&quot;) long id) {
+        MyModel myModel = this.myModelRepository.findById(id).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;MyModel does not exist with the Id: &quot; + myModelId));
+
+        this.myModelRepository.delete(myModel);
+        return ResponseEntity.ok(&quot;My Model with Id: &quot; + id + &quot; has been deleted&quot;);
+    }
+    
+}
+</div></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p><a href="#starting-your-spring-boot-application-build">Go to the top</a></p>
+<ul>
+<li>Now that we have successfully built a basic Spring Boot REST API for our single model class, we can scale our API by building all the same code for each model we want to have in our program</li>
+<li>I hope this tutorial has helped walk you through the process and visualize the process used to build a REST API and connect it to a MySQL database</li>
+<li>Happy Coding!</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
