@@ -1,0 +1,19 @@
+{
+  "name": "springboot-rest-api-guide",
+  "version": "1.0.0",
+  "description": "Learning guide for Spring Boot REST APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Developer-Knowledge-Share/SpringBoot-Rest-API-Guide.git"
+  },
+  "author": "bobbygrdn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Developer-Knowledge-Share/SpringBoot-Rest-API-Guide/issues"
+  },
+  "homepage": "https://github.com/Developer-Knowledge-Share/SpringBoot-Rest-API-Guide#readme"
+}
